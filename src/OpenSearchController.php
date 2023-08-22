@@ -2,21 +2,21 @@
 
 namespace Sav\OpenSearch;
 
-use App\Http\Services\OpenSearchService;
+use App\Http\Services\OpenSearch;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller;
 
 class OpenSearchController extends Controller
 {
-    protected $opensearchservice;
-    public function __construct(OpenSearchService $opensearchservice)
+    protected $OpenSearch;
+    public function __construct(OpenSearch $OpenSearch)
     {
-        $this->opensearchservice = $opensearchservice;
+        $this->OpenSearch = $OpenSearch;
     }
     public function test_opensearch()
     {
         try {
-            return $this->opensearchservice->testConnection();
+            return $this->OpenSearch->testConnection();
         } catch (\Exception $e) {
             return response()->json(["test_opensearch" => $e]);
         }
@@ -26,7 +26,7 @@ class OpenSearchController extends Controller
         try {
             $jsonData = file_get_contents('php://input');
             $phpArray = json_decode($jsonData, true);
-            return $this->opensearchservice->createIndex($phpArray['indexName'], (object)$phpArray['settings'], (object)$phpArray['mappings']);
+            return $this->OpenSearch->createIndex($phpArray['indexName'], (object)$phpArray['settings'], (object)$phpArray['mappings']);
         } catch (\Exception $e) {
             return $e;
         }
@@ -34,7 +34,7 @@ class OpenSearchController extends Controller
     public function delete_index(Request $request)
     {
         try {
-            return $this->opensearchservice->deleteIndex($request->indexName);
+            return $this->OpenSearch->deleteIndex($request->indexName);
         } catch (\Exception $e) {
             return $e;
         }
@@ -44,7 +44,7 @@ class OpenSearchController extends Controller
         try {
             $jsonData = file_get_contents('php://input');
             $phpArray = json_decode($jsonData, true);
-            return $this->opensearchservice->indexDocument($phpArray['indexName'], $phpArray['id'], (object)$phpArray['body']);
+            return $this->OpenSearch->indexDocument($phpArray['indexName'], $phpArray['id'], (object)$phpArray['body']);
         } catch (\Exception $e) {
             return $e;
         }
@@ -52,7 +52,7 @@ class OpenSearchController extends Controller
     public function delete_document(Request $request)
     {
         try {
-            return $this->opensearchservice->deleteDocument($request->indexName, $request->id);
+            return $this->OpenSearch->deleteDocument($request->indexName, $request->id);
         } catch (\Exception $e) {
             return $e;
         }
@@ -62,7 +62,7 @@ class OpenSearchController extends Controller
         try {
             $jsonData = file_get_contents('php://input');
             $phpArray = json_decode($jsonData, true);
-            return $this->opensearchservice->searchDocument($phpArray['indexName'], (object)$phpArray['body']);
+            return $this->OpenSearch->searchDocument($phpArray['indexName'], (object)$phpArray['body']);
         } catch (\Exception $e) {
             return $e;
         }
@@ -70,7 +70,7 @@ class OpenSearchController extends Controller
     public function get_documents(Request $request)
     {
         try {
-            return $this->opensearchservice->getDocuments($request->indexName);
+            return $this->OpenSearch->getDocuments($request->indexName);
         } catch (\Exception $e) {
             return $e;
         }
@@ -81,7 +81,7 @@ class OpenSearchController extends Controller
         try {
             $jsonData = file_get_contents('php://input');
             $phpArray = json_decode($jsonData, true);
-            return $this->openSearchService->updateDocument($phpArray['indexName'], $phpArray['document_id'], $phpArray['update_fields']);
+            return $this->OpenSearch->updateDocument($phpArray['indexName'], $phpArray['document_id'], $phpArray['update_fields']);
         } catch (\Exception $e) {
             return $e;
         }
