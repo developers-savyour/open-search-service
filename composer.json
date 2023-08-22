@@ -1,0 +1,45 @@
+{
+    "name": "sav/opensearch",
+    "description": "A laravel project used to count token for chat gpt 2 & 3 prompt.",
+    "version": "1.0.0",
+    "keywords": [
+        "laravel",
+        "chatgpt",
+        "gpt2",
+        "gpt3",
+        "token",
+        "tiktoken",
+        "encoder",
+        "php",
+        "zohaibtariq",
+        "laravel",
+        "count-gpt-token"
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Sav\\OpenSearch\\": "src/"
+        }
+    },
+    "scripts": {
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sav\\OpenSearch\\OpenSearchServiceProvider"
+            ],
+            "aliases": {
+                "CountGptToken": "Sav\\OpenSearch\\Facades\\OpenSearchFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
