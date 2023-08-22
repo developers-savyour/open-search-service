@@ -11,7 +11,6 @@ class OpenSearch
     private $port;
     public function __construct()
     {
-       dd( env('OPENSEARCH_HOST'),env('OPENSEARCH_PORT'),env('OPENSEARCH_USERNAME'), env('OPENSEARCH_PASSWORD'));
         $this->openSearchClient = (new ClientBuilder())
             ->setHosts([env('OPENSEARCH_HOST').":".env('OPENSEARCH_PORT')])
             ->setBasicAuthentication(env('OPENSEARCH_USERNAME'), env('OPENSEARCH_PASSWORD'))
