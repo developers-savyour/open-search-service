@@ -9,11 +9,17 @@ class OpenSearch
     protected $openSearchClient;
     private $host;
     private $port;
+    private $username;
+    private $secrete;
     public function __construct()
     {
+        $this->host = env('OPENSEARCH_HOST');
+        $this->port = env('OPENSEARCH_PORT');
+        $this->username = env('OPENSEARCH_USERNAME');
+        $this->secrete = env('OPENSEARCH_PASSWORD');
         $this->openSearchClient = (new ClientBuilder())
-            ->setHosts([env('OPENSEARCH_HOST').":".env('OPENSEARCH_PORT')])
-            ->setBasicAuthentication(env('OPENSEARCH_USERNAME'), env('OPENSEARCH_PASSWORD'))
+            ->setHosts([$this->host.":".$this->port])
+            ->setBasicAuthentication($this->username, $this->secrete)
             ->setSSLVerification(true)
             ->build();
     }
