@@ -18,7 +18,7 @@ class OpenSearch
         $this->username = env('OPENSEARCH_USERNAME');
         $this->secrete = env('OPENSEARCH_PASSWORD');
         $this->openSearchClient = (new ClientBuilder())
-            ->setHosts(["https://vpc-staging-opensearch-reowrvff4oxlz5yuowrj73lyw4.ap-south-1.es.amazonaws.com:443"])
+            ->setHosts([$this->host.":".$this->port])
             ->setBasicAuthentication($this->username, $this->secrete)
             ->setSSLVerification(true)
             ->build();
