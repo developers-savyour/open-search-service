@@ -13,10 +13,11 @@ class OpenSearch
     private $secrete;
     public function __construct()
     {
-        $this->host = env('OPENSEARCH_HOST');
-        $this->port = env('OPENSEARCH_PORT');
-        $this->username = env('OPENSEARCH_USERNAME');
-        $this->secrete = env('OPENSEARCH_PASSWORD');
+        $this->host = constants('opensearch.host');
+        $this->port = constants('opensearch.port');
+        $this->username = constants('opensearch.username');
+        $this->secrete = constants('opensearch.password');
+        
         $this->openSearchClient = (new ClientBuilder())
             ->setHosts([$this->host.":".$this->port])
             ->setBasicAuthentication($this->username, $this->secrete)
