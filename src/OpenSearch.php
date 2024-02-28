@@ -88,7 +88,7 @@ class OpenSearch
                 'body' => $body
             ]);
         } catch (OpenSearchException $e) {
-            return ($e);
+             throw $e;
         }
     }
     public function getDocuments($indexName)
