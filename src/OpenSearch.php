@@ -141,4 +141,48 @@ class OpenSearch
         }
     }
 
+    public function cloneIndex($source, $destination)
+    {
+        try {
+
+            $this->makeWritable(true);
+            $this->openSearchClient->indices()->clone([
+                'index' => $source,
+                'target' => $destination,
+            ]);
+
+            $this->makeWritable(false);
+  
+        } catch (OpenSearchException $e) {
+            return ($e);
+        }
+    }
+
+    public function renameIndex($source, $destination)
+    {
+        try {
+            $this->makeWritable(true);
+            $this->openSearchClient->indices()->shrink([
+                'index' => $source,
+                'target' => $destination,
+            ]);
+            $this->makeWritable(false);
+        } catch (OpenSearchException $e) {
+            return ($e);
+        }
+    }
+
+    private function makeWritable($index, $bool){
+        $params = [
+            'index' => $index,
+            'body' => [
+                'settings' => [
+                    'index.blocks.write' => $bool
+                ]
+            ]
+        ];
+        $this->openSearchClient->indices()->putSettings($params);
+        return true;
+    }
+
 }
