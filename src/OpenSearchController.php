@@ -86,4 +86,26 @@ class OpenSearchController extends Controller
             return $e;
         }
     }
+
+        public function clone_index()
+    {
+        try {
+            $jsonData = file_get_contents('php://input');
+            $phpArray = json_decode($jsonData, true);
+            return $this->OpenSearch->cloneIndex($phpArray['sourceIndexName'],  $phpArray['destinationIndexName']);
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
+
+    public function rename_index()
+    {
+        try {
+            $jsonData = file_get_contents('php://input');
+            $phpArray = json_decode($jsonData, true);
+            return $this->OpenSearch->renameIndex($phpArray['sourceIndexName'],  $phpArray['destinationIndexName']);
+        } catch (\Exception $e) {
+            return $e;
+        }
+    }
 }
