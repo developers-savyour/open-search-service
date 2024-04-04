@@ -145,13 +145,13 @@ class OpenSearch
     {
         try {
 
-            $this->makeWritable(true);
+            $this->makeWritable($source,true);
             $this->openSearchClient->indices()->clone([
                 'index' => $source,
                 'target' => $destination,
             ]);
 
-            $this->makeWritable(false);
+            $this->makeWritable($source,false);
   
         } catch (OpenSearchException $e) {
             return ($e);
@@ -161,12 +161,12 @@ class OpenSearch
     public function renameIndex($source, $destination)
     {
         try {
-            $this->makeWritable(true);
+            $this->makeWritable($source,true);
             $this->openSearchClient->indices()->shrink([
                 'index' => $source,
                 'target' => $destination,
             ]);
-            $this->makeWritable(false);
+            $this->makeWritable($source,false);
         } catch (OpenSearchException $e) {
             return ($e);
         }
