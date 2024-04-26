@@ -185,4 +185,39 @@ class OpenSearch
         return true;
     }
 
+    public function searchWithScroll($indexName, $query, $scrollDuration = '1m')
+    {
+        try {
+            return $this->openSearchClient->search([
+                'index' => $indexName,
+                'body' => $query,
+                'scroll' => $scrollDuration
+            ]);
+        } catch (OpenSearchException $e) {
+             throw $e;
+        }
+    }
+
+    public function scroll($scrollId, $scrollDuration = '1m')
+    {
+        try {
+            return $this->openSearchClient->scroll([
+                'scroll' => $scrollDuration,
+                'scroll_id' => $scrollId
+            ]);
+        } catch (OpenSearchException $e) {
+            throw $e;
+        }
+    }
+
+    public function clearScroll($scrollId)
+    {
+        try {
+            return $this->openSearchClient->clearScroll([
+                'scroll_id' => $scrollId
+            ]);
+        } catch (OpenSearchException $e) {
+            throw $e;
+        }
+    }
 }
